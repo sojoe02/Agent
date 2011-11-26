@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package simulator;
+package presentation;
 
+import presentation.agentRepresentation.*;
+import java.awt.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -22,24 +24,25 @@ import java.util.Random;
  *
  * @author Soren V. Jorgensen
  */
-public class Presentation extends JFrame implements MouseListener {
+public class Presentation extends JComponent implements MouseListener {
 
-    private static void createAndShowGUI() {
+    private void createAndShowGUI() {        
         JFrame f = new JFrame("Animated Graphics");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setPreferredSize(new Dimension(800, 600));
-        //Screen mp = new Screen();
-        //mp.setBackground(Color.yellow);
-        //f.add(mp);
+        JPerson mp = new JPerson();
+        mp.setBackground(Color.yellow);
+        f.add(mp);
         f.setVisible(true);
         f.pack();
-        //f.addMouseListener(mp);
-    }
-
-    public static void main(String args[]) {
+        //f.addMouseListener(mp);        
+    }    
+    
+    public void showGui() {
 
         Runnable doCreateAndShowGUI = new Runnable() {
 
+            @Override
             public void run() {
 
                 createAndShowGUI();
@@ -50,8 +53,9 @@ public class Presentation extends JFrame implements MouseListener {
             Thread.sleep(2);
         } catch (Exception e) {
         }
-    }
-
+    }   
+    
+    
     public void mouseClicked(MouseEvent me) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

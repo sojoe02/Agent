@@ -25,11 +25,11 @@ public class GetPosition extends SimpleBehaviour {
     public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
 
-//    if (aclMessage!=null) { 
-//        System.out.println(myAgent.getLocalName()+": I receive message.\n"+aclMessage); 
-//    } else { 
-//        this.block(); 
-//      }    
+    if (aclMessage!=null) { 
+        System.out.println(myAgent.getLocalName()+": I receive message.\n"+aclMessage); 
+    } else { 
+        this.block(); 
+      }    
     }
 
     public boolean done() {
