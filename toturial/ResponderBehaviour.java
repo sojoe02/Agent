@@ -26,7 +26,7 @@ MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
     ACLMessage aclMessage = myAgent.receive(mt); 
      
     if (aclMessage!=null) { 
-        System.out.println(myAgent.getLocalName()+": I receive message.\n"+aclMessage); 
+        System.out.println(myAgent.getLocalName()+": I receive message.\n"+aclMessage.getContent()); 
     } else { 
         this.block(); 
       }    

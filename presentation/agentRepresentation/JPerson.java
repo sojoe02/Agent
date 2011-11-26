@@ -5,6 +5,8 @@
 package presentation.agentRepresentation;
 
 import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,55 +22,46 @@ import javax.swing.JComponent;
  *
  * @author Zagadka
  */
-public class JPerson extends JComponent implements ActionListener, MouseListener {
+public class JPerson {
 
-    public void paint(Graphics graphics) {
-        
-        Image img = null;
-        
+    private int posx, posy;
+    String name;
+    Image img = null;
+    String sentence;
+
+    public JPerson(String name, int posx, int posy) {
+        this.posx = posx;
+        this.posy = posy;
+        this.name = name;
+        this.sentence = null;
+
+
         try {
             img = ImageIO.read(new File("images/man.jpg"));
         } catch (IOException ex) {
             System.out.println("images/man.jpg not found");
         }
+    }
 
-        graphics.drawImage(img, 50, 50, 100, 100, null);
-          
-                //        graphics.setColor(Color.white);
-                //        graphics.fillOval(50, 50, 100, 100);
-                //        graphics.setColor(Color.blue);
-                //        graphics.drawOval(50, 50, 100, 100);
-                //        graphics.drawRoundRect(10, 10, 100, 100, 5, 5);
+    public void updatePos(int posx, int posy) {
+        this.posx = posx;
+        this.posy = posy;
+    }
     
+    public void setSentence(String sentence){
+        this.sentence = sentence;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void draw(Graphics graphics) {
+        Font f = new Font("SansSerif", Font.BOLD, 25);
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        graphics.setFont(f);
+        graphics.setFont(null);
+        graphics.drawString(name, posx, posy);
+        graphics.drawImage(img, posx, posy, 100, 100, null);   
+        if(sentence != null){
+            graphics.drawString(sentence, posx, posy+125);
+        }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -4,8 +4,10 @@
  */
 package agents;
 
-import behaviours.GetPosition;
+import behaviours.UpdateActorSpeech;
+import behaviours.UpdatePosition;
 import jade.core.Agent;
+import presentation.Frame;
 import presentation.Presentation;
 
 
@@ -15,28 +17,22 @@ import presentation.Presentation;
  */
 public class RenderAgent extends Agent{
     
-    Presentation pres; 
-    
+    Presentation pres;   
+    Frame frame;
     
     @Override
     public void setup(){
+        
         System.out.println("Hello I am the graphics render agent my name is: " 
-                + this.getLocalName());
+                + this.getLocalName());        
+       
+        pres = new Presentation();   
+        frame = new Frame(pres);        
         
-        pres = new Presentation();
+        frame.showGui();           
         
-        pres.showGui();
-        
-        addBehaviour(new GetPosition(this));
-        
-    }
-    
-    
-    public void addNewActor(){
-        
-    }
-    
-    public void updatePeoplePos(){
-        
-    }
+        addBehaviour(new UpdatePosition(this, pres));        
+        addBehaviour(new UpdateActorSpeech(this,pres));
+    }    
+
 }

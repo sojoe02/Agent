@@ -14,6 +14,10 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 /*
@@ -26,36 +30,60 @@ import java.util.Random;
  */
 public class Presentation extends JComponent implements MouseListener {
 
-    private void createAndShowGUI() {        
-        JFrame f = new JFrame("Animated Graphics");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setPreferredSize(new Dimension(800, 600));
-        JPerson mp = new JPerson();
-        mp.setBackground(Color.yellow);
-        f.add(mp);
-        f.setVisible(true);
-        f.pack();
-        //f.addMouseListener(mp);        
-    }    
+    private HashMap<String, JPerson> persons = new HashMap<String, JPerson>();
     
-    public void showGui() {
+    private Timer timer;
 
-        Runnable doCreateAndShowGUI = new Runnable() {
-
-            @Override
-            public void run() {
-
-                createAndShowGUI();
-            }
-        };
-        SwingUtilities.invokeLater(doCreateAndShowGUI);
-        try {
-            Thread.sleep(2);
-        } catch (Exception e) {
-        }
+    public Presentation() {
+//        timer = new Timer(100, this);
+//        //initial delay while window gets set up
+//        timer.setInitialDelay(100);
+//        timer.start();
     }   
+
+    @Override
+    public void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        peopleRender(g);
+    }
+
+//    @Override
+//    public void actionPerformed(ActionEvent ae) {
+//        //paint whatever is in the buffer:
+//        repaint();
+//    }
+
+    public void peopleRender(Graphics g) {
+        Collection p = persons.values();
+        Iterator<JPerson> itr = p.iterator();
+
+        while (itr.hasNext()) {
+            itr.next().draw(g);
+        }
+    }
+
+    public void addPerson(String name, int posx, int posy) {
+        JPerson tmp = new JPerson(name, posx, posy);
+        persons.put(name, tmp);
+    }
+
+    public void updatePos(String name, int posx, int posy) {
+        if (!persons.containsKey(name)) {
+            JPerson tmp = new JPerson(name, posx, posy);
+            persons.put(name, tmp);
+        } else {
+            JPerson tmp = persons.get(name);
+            tmp.updatePos(posx, posy);
+        }
+    }
     
-    
+    public void updateSpeech(String name, String sentence){        
+        if(persons.containsKey(name)){
+        persons.get(name).setSentence(sentence);
+        }
+    }
+
+
     public void mouseClicked(MouseEvent me) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

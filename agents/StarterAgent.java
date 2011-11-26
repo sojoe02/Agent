@@ -35,7 +35,7 @@ public class StarterAgent extends Agent implements AgentInterface {
         }
 
         try {            
-            Object[] obj = {"111333"};
+            Object[] obj = {"111100"};
             
             startNewAgent("agents.actors.GeneralPerson", "Stan", obj);
         } catch (StaleProxyException ex) {
@@ -43,7 +43,7 @@ public class StarterAgent extends Agent implements AgentInterface {
         }
 
         try {
-            Object[] obj = {"222444"};
+            Object[] obj = {"400200"};
 
             startNewAgent("agents.actors.GeneralPerson", "Ollie", obj);
         } catch (StaleProxyException ex) {

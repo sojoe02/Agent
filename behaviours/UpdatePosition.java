@@ -10,25 +10,32 @@ package behaviours;
  */
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Position;
+import presentation.Presentation;
 
-public class GetPosition extends CyclicBehaviour {
+public class UpdatePosition extends SimpleBehaviour {
 
     private static final MessageTemplate mt =
             MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+    
+    Presentation pres;
 
-    public GetPosition(Agent agent) {
+    public UpdatePosition(Agent agent, Presentation pres) {
         super(agent);
+        this.pres = pres;        
     }
 
     @Override
     public void action() {
-    ACLMessage aclMessage = myAgent.receive(mt);
+    ACLMessage aclMessage = myAgent.receive(mt);    
+
     
     if (aclMessage!=null) { 
         //System.out.println(myAgent.getLocalName()+": I receive message.\n"+aclMessage); 
@@ -36,15 +43,25 @@ public class GetPosition extends CyclicBehaviour {
             try {
                 content = (Position)aclMessage.getContentObject();
             } catch (UnreadableException ex) {
-                Logger.getLogger(GetPosition.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        System.out.println(content);                
+                Logger.getLogger(UpdatePosition.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        
+        pres.updatePos(content.getName(), content.getPosX(), content.getPosY());
+        
+        pres.repaint();
         
         
     } else { 
         this.block(); 
       }    
     }
+
+    @Override
+    public boolean done() {
+        return false; 
+    }
+    
+    
 
     
 }
