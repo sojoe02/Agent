@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author Zagadka
@@ -35,14 +34,18 @@ public class StarterAgent extends Agent implements AgentInterface {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        try {
-            startNewAgent("agents.actors.GeneralPerson","Stan", null);
+        try {            
+            Object[] obj = {"111333"};
+            
+            startNewAgent("agents.actors.GeneralPerson", "Stan", obj);
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                try {
-            startNewAgent("agents.actors.GeneralPerson","Ollie", null);
+
+        try {
+            Object[] obj = {"222444"};
+
+            startNewAgent("agents.actors.GeneralPerson", "Ollie", obj);
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,5 +57,4 @@ public class StarterAgent extends Agent implements AgentInterface {
     private void startNewAgent(String className, String agentName, Object[] arguments) throws StaleProxyException {
         ((AgentController) getContainerController().createNewAgent(agentName, className, arguments)).start();
     }
-
 }

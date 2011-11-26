@@ -11,13 +11,22 @@ package messages;
 public class Position implements java.io.Serializable{
     private int posx;
     private int posy;
+    private String name;
     
     public void setPosX(int posx){
         this.posx = posx;
     }
     
     public void setPosY(int posy){
-        this.posx = posy;
+        this.posy = posy;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
     }
     
     public int getPosX(){
@@ -30,6 +39,6 @@ public class Position implements java.io.Serializable{
     
     @Override
     public String toString(){
-        return "position x: " + getPosX() + "\t position y: " + getPosY();
+        return "name is: "+ name +"\tposition x: " + getPosX() + "\t position y: " + getPosY();
     }
 }
