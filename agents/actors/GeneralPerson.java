@@ -16,6 +16,7 @@ import messages.Position;
 public class GeneralPerson extends Agent implements agents.AgentInterface {
 
     int posx, posy;
+    int wait = 3500;
 
     @Override
     protected void setup() {
@@ -26,25 +27,58 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         System.out.println("Hallo World ! my name is " + this.getLocalName()
                 + " i am a straight up 'general person' agent.");
         sendPosition();
+
+        this.doWait(wait);
+
+        sendMessage("Hello I am a general person agent");
+
+        this.doWait(wait);
+
+        sendMessage("My name is : " + this.getLocalName());
+
+        this.doWait(wait);
+
+        sendMessage("I represent a potential customer");
+
+        this.doWait(wait);
+
+        sendMessage("I just arrived in the this city and I want to buy something");
+
+        this.doWait(wait);
+
+        sendMessage("So I make a request on the item type I need");
+
+        this.doWait(wait + 1000);
+
+        sendMessage("Hey thats a store: 'Ollie the Store'");
+
+        this.doWait(wait);
+
+        sendMessage("It even provides the service i need, I'll go and have a look");
+
+        this.doWait(wait);
+
+        sendMessage("dumdidumdum...");
+
+        while (posx < 800) {
+            this.doWait(10);
+            posx++;
+            sendPosition();
+        }
         
-        this.doWait(3000);        
-        
-        sendMessage("Hello How are you");
-        
-        this.doWait(3000);
-        
-        sendMessage("I am pretty bored");
-        
-        this.doWait(3000);
-        
-        this.posx +=50;
-        this.posy +=50;
-        
-        sendPosition();
+        sendMessage("ladidadida...");
+
+        while (posy < 500) {
+            this.doWait(10);
+            posy++;
+            sendPosition();
+
+
+        }
 
     }
 
-    private void sendMessage(String message) {        
+    private void sendMessage(String message) {
         AID r = new AID(RENDERAGENT, AID.ISLOCALNAME);
         ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
         aclMessage.addReceiver(r);
@@ -57,6 +91,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         position.setPosX(posx);
         position.setPosY(posy);
         position.setName(this.getLocalName());
+        position.setType("person");
 
         AID render = new AID(RENDERAGENT, AID.ISLOCALNAME);
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);

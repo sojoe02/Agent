@@ -37,15 +37,17 @@ public class StarterAgent extends Agent implements AgentInterface {
         try {            
             Object[] obj = {"111100"};
             
-            startNewAgent("agents.actors.GeneralPerson", "Stan", obj);
+            startNewAgent("agents.actors.GeneralPerson", "Stan the Person", obj);
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.doWait(6*3500);
 
         try {
-            Object[] obj = {"400200"};
+            Object[] obj = {"800600"};
 
-            startNewAgent("agents.actors.GeneralPerson", "Ollie", obj);
+            startNewAgent("agents.actors.GeneralStore", "Ollie The Store", obj);
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }

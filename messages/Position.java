@@ -12,10 +12,13 @@ public class Position implements java.io.Serializable{
     private int posx;
     private int posy;
     private String name;
+    private String type;
     
     public void setPosX(int posx){
         this.posx = posx;
     }
+    
+    
     
     public void setPosY(int posy){
         this.posy = posy;
@@ -23,6 +26,14 @@ public class Position implements java.io.Serializable{
     
     public void setName(String name){
         this.name = name;
+    }
+    
+    public void setType(String type){
+        this.type = type;
+    }
+    
+    public String getType(){
+        return type;
     }
     
     public String getName(){
