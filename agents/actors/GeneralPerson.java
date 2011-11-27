@@ -11,8 +11,6 @@ package agents.actors;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import messages.Position;
 
 public class GeneralPerson extends Agent implements agents.AgentInterface {
@@ -29,13 +27,20 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
                 + " i am a straight up 'general person' agent.");
         sendPosition();
         
-        this.doWait(5000);
+        this.doWait(3000);        
         
         sendMessage("Hello How are you");
         
         this.doWait(3000);
         
         sendMessage("I am pretty bored");
+        
+        this.doWait(3000);
+        
+        this.posx +=50;
+        this.posy +=50;
+        
+        sendPosition();
 
     }
 

@@ -4,8 +4,8 @@
  */
 package agents;
 
-import behaviours.UpdateActorSpeech;
-import behaviours.UpdatePosition;
+import behaviours.render.UpdateActorSpeech;
+import behaviours.render.UpdatePosition;
 import jade.core.Agent;
 import presentation.Frame;
 import presentation.Presentation;
