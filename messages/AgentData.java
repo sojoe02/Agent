@@ -8,7 +8,7 @@ package messages;
  *
  * @author Zagadka
  */
-public class Position implements java.io.Serializable{
+public class AgentData implements java.io.Serializable{
     private int posx;
     private int posy;
     private String name;

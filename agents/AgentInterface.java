@@ -15,5 +15,11 @@ public interface AgentInterface {
     public static final int SPEECHDELAY = 10000;
     
     public static final String RENDERAGENT = "Render";
+    public static final String PUPPETMASTER = "MasterControl";
+    public static final String SERVICEPROVIDER = "Servicer";
+    public static final String ACTORCONTROL = "ActorController";
+    
+    public static final int resX = 1024;
+    public static final int resY = 768;
     
 }

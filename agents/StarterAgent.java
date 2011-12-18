@@ -33,24 +33,30 @@ public class StarterAgent extends Agent implements AgentInterface {
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        try {            
-            Object[] obj = {"111100"};
-            
-            startNewAgent("agents.actors.GeneralPerson", "Stan the Person", obj);
-        } catch (StaleProxyException ex) {
-            Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        this.doWait(6*3500);
-
         try {
-            Object[] obj = {"800600"};
-
-            startNewAgent("agents.actors.GeneralStore", "Ollie The Store", obj);
+            startNewAgent("simulator.agents.PuppetMaster", PUPPETMASTER, null);
         } catch (StaleProxyException ex) {
             Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
+
+//        try {            
+//            Object[] obj = {"111100", "5000"};
+//            
+//            startNewAgent("agents.actors.GeneralPerson", "Stan the Person", obj);
+//        } catch (StaleProxyException ex) {
+//            Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        this.doWait(6*3500);
+//
+//        try {
+//            Object[] obj = {"800600"};
+//
+//            startNewAgent("agents.actors.GeneralStore", "Ollie The Store", obj);
+//        } catch (StaleProxyException ex) {
+//            Logger.getLogger(StarterAgent.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     /*method for starting a new agent

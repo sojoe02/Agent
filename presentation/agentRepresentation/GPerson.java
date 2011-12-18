@@ -15,14 +15,14 @@ import javax.imageio.ImageIO;
  *
  * @author Zagadka
  */
-public class JPerson {
+public class GPerson {
 
     private int posx, posy;
     String name;
     Image img = null;
     String sentence;
 
-    public JPerson(String name, int posx, int posy) {
+    public GPerson(String name, int posx, int posy) {
         this.posx = posx;
         this.posy = posy;
         this.name = name;
@@ -30,7 +30,7 @@ public class JPerson {
 
 
         try {
-            img = ImageIO.read(new File("images/man.jpg"));
+            img = ImageIO.read(new File("images/person002.png"));
         } catch (IOException ex) {
             System.out.println("images/man.jpg not found");
         }
@@ -46,14 +46,13 @@ public class JPerson {
     }
 
     public void draw(Graphics graphics) {
-        Font f = new Font("SansSerif", Font.BOLD, 25);
-
+        Font f = new Font("SansSerif", Font.BOLD, 15);
         graphics.setFont(f);
         graphics.setFont(null);
         graphics.drawString(name, posx, posy);
-        graphics.drawImage(img, posx, posy, 100, 100, null);   
+        graphics.drawImage(img, posx, posy, 25, 40, null);   
         if(sentence != null){
-            graphics.drawString(sentence, posx, posy+125);
+            graphics.drawString(sentence, posx, posy+50);
         }
 
     }

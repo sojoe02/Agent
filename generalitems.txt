@@ -1,0 +1,9 @@
+jeans,500
+phone,2000
+computer,4000
+schrimp,1
+car,10000
+shirt,100
+hat,50
+tire,45
+scrapmetal,1000

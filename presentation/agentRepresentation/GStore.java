@@ -15,30 +15,30 @@ import javax.imageio.ImageIO;
  *
  * @author Zagadka
  */
-public class JStore {
+public class GStore {
 
     private int posx, posy;
     private String name;
     private Image img = null;
 
-    public JStore(String name, int posx, int posy) {
+    public GStore(String name, int posx, int posy) {
         this.posx = posx;
         this.posy = posy;
         this.name = name;
 
         try {
-            img = ImageIO.read(new File("images/store.jpg"));
+            img = ImageIO.read(new File("images/store00.png"));
         } catch (IOException ex) {
-            System.out.println("images/store.jpg not found");
+            System.out.println("image not found");
         }
     }
 
     public void draw(Graphics graphics) {
-        Font f = new Font("SansSerif", Font.BOLD, 25);
+        Font f = new Font("SansSerif", Font.BOLD, 15);
 
         graphics.setFont(f);
         graphics.setFont(null);
         graphics.drawString(name, posx, posy);
-        graphics.drawImage(img, posx, posy, 100, 100, null);
+        graphics.drawImage(img, posx, posy, 40, 30, null);
     }
 }

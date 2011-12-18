@@ -5,12 +5,9 @@
 package behaviours.render;
 
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import presentation.Presentation;
 
 /**
@@ -20,20 +17,20 @@ import presentation.Presentation;
 public class UpdateActorSpeech extends SimpleBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
-    
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM)
+            ,MessageTemplate.MatchConversationId("conversation"));
     Presentation pres;
 
     public UpdateActorSpeech(Agent agent, Presentation pres) {
-        super(agent);        
+        super(agent);
         this.pres = pres;
     }
 
     @Override
     public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
-        if (aclMessage != null) {
-            pres.updateSpeech(aclMessage.getSender().getLocalName(),aclMessage.getContent());
+        if (aclMessage!=null) {
+            pres.updateSpeech(aclMessage.getSender().getLocalName(), aclMessage.getContent());
             pres.repaint();
         } else {
             this.block();
@@ -44,5 +41,4 @@ public class UpdateActorSpeech extends SimpleBehaviour {
     public boolean done() {
         return false;
     }
-
 }

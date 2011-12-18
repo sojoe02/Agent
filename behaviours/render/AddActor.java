@@ -4,10 +4,7 @@
  */
 package behaviours.render;
 
-/**
- *
- * @author Zagadka
- */
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
@@ -19,14 +16,17 @@ import java.util.logging.Logger;
 import messages.AgentData;
 import presentation.Presentation;
 
-public class UpdatePosition extends CyclicBehaviour {
+/**
+ *
+ * @author Zagadka
+ */
+public class AddActor extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),
-            MessageTemplate.MatchConversationId("positionupdate"));
+            MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
     Presentation pres;
 
-    public UpdatePosition(Agent agent, Presentation pres) {
+    public AddActor(Agent agent, Presentation pres) {
         super(agent);
         this.pres = pres;
     }
@@ -46,17 +46,13 @@ public class UpdatePosition extends CyclicBehaviour {
 
             if (content.getType().equals("person")) {
                 pres.updatePos(content.getName(), content.getPosX(), content.getPosY());
+            } else if (content.getType().equals("store")) {
+                pres.addStore(content.getName(), content.getPosX(), content.getPosY());
+                //System.out.println(content.getName());
+            } else if (content.getType().equals("cross")) {
+                pres.addCross(content.getName(), content.getPosX(), content.getPosY());
+                //System.out.println(content.getName());
             }
-                
-                
-//            } else if (content.getType().equals("store")) {
-//                pres.addStore(content.getName(), content.getPosX(), content.getPosY());
-//                System.out.println(content.getName());
-//            }
-//            else if (content.getType().equals("store")) {
-//                pres.addStore(content.getName(), content.getPosX(), content.getPosY());
-//                System.out.println(content.getName());
-//            }
 
             pres.repaint();
 
@@ -65,5 +61,4 @@ public class UpdatePosition extends CyclicBehaviour {
             this.block();
         }
     }
-
 }

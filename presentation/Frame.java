@@ -4,6 +4,7 @@
  */
 package presentation;
 
+import agents.AgentInterface;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -12,7 +13,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Zagadka
  */
-public class Frame {
+public class Frame implements AgentInterface{
 
     private JFrame f = new JFrame("Animated Graphics");
     private Presentation pres;

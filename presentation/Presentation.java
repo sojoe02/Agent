@@ -24,44 +24,61 @@ import java.util.Iterator;
  */
 public class Presentation extends JComponent implements MouseListener {
 
-    private HashMap<String, JPerson> persons = new HashMap<String, JPerson>();
-    private HashMap<String, JStore> stores = new HashMap<String, JStore>();
+    private HashMap<String, GPerson> persons = new HashMap<String, GPerson>();
+    private HashMap<String, GStore> stores = new HashMap<String, GStore>();
+    private HashMap<String, GCrossSection> crosssections = 
+            new HashMap<String, GCrossSection>();
 
     public Presentation() {
+        
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        peopleRender(g);
+        actorRender(g);
     }
 
-    public void peopleRender(Graphics g) {
+    public synchronized void actorRender(Graphics g) {
         Collection p = persons.values();
-        Iterator<JPerson> itr = p.iterator();
-
+        Iterator<GPerson> itr = p.iterator();
         while (itr.hasNext()) {
             itr.next().draw(g);
         }
+        
         Collection s = stores.values();
-        Iterator<JStore> sitr = s.iterator();
-
+        //System.out.println(stores.size());
+        Iterator<GStore> sitr = s.iterator();
         while (sitr.hasNext()) {
             sitr.next().draw(g);
         }
+        
+        Collection t = crosssections.values();
+        //System.out.println(crosssections.size());
+        Iterator<GCrossSection> titr = t.iterator();
+        while (titr.hasNext()) {
+            titr.next().draw(g);
+        }
+        
+        
     }
 
-    public void addStore(String name, int posx, int posy) {
-        JStore tmp = new JStore(name, posx, posy);
+    public synchronized void addStore(String name, int posx, int posy) {
+        GStore tmp = new GStore(name, posx, posy);
         stores.put(name, tmp);
     }
+    
+    public synchronized void addCross(String name, int posx, int posy) {
+        GCrossSection tmp = new GCrossSection(name, posx, posy);
+        crosssections.put(name, tmp);
+    }
 
-    public void updatePos(String name, int posx, int posy) {
+    public synchronized void updatePos(String name, int posx, int posy) {
         if (!persons.containsKey(name)) {
-            JPerson tmp = new JPerson(name, posx, posy);
+            GPerson tmp = new GPerson(name, posx, posy);
             persons.put(name, tmp);
         } else {
-            JPerson tmp = persons.get(name);
+            GPerson tmp = persons.get(name);
             tmp.updatePos(posx, posy);
         }
     }
