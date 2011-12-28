@@ -47,6 +47,8 @@ public class ReceiveItem extends CyclicBehaviour {
             } else{
                 this.block();
             }
+        } else{
+            this.block();
         }
 
     }

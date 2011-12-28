@@ -48,6 +48,8 @@ public class GiveLocation extends CyclicBehaviour {
                 Logger.getLogger(GiveItemList.class.getName()).log(Level.SEVERE, null, ex);
             }
             myAgent.send(reply); 
+        } else{
+            this.block();
         }
     }
 }
