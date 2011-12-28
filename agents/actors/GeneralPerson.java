@@ -22,6 +22,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
+import java.util.Random;
 import messages.AgentData;
 import simulator.logic.Move;
 
@@ -50,8 +51,11 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         
 
         destination[0] = posx;
+        
         destination[1] = posy;
 
+        doWait(2000);
+        
         System.out.println("Hallo World ! my name is " + this.getLocalName()
                 + " i am a straight up 'general person' agent.");
         Addme();
@@ -60,7 +64,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         addBehaviour(new GetStoreLocation(this));
         addBehaviour(new ReceiveItem(this));
 
-        doWait(1000);
+        
 
         //double[] to = {700, 700};
         sendMessage("hey I'm me");
@@ -77,11 +81,18 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
      */
     public void browse() {
         busy = true;
-        AID shop = getService("GeneralItems");
+        Random random = new Random();
+        
+        AID shops[] = searchDF("GeneralItems");
+        
+        AID shop = shops[random.nextInt(shops.length)];
+        
+        
         ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
         aclMessage.setConversationId("GeneralItems");
         aclMessage.addReceiver(shop);
         aclMessage.setContent("giveItemList");
+       
         this.send(aclMessage);
     }
     

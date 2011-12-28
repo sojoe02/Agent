@@ -41,6 +41,7 @@ public class GiveItemList extends CyclicBehaviour{
         if (aclMessage != null) {            
             ACLMessage reply = aclMessage.createReply();
             reply.setConversationId("sendingitemlist");
+            reply.setPerformative(ACLMessage.INFORM);
             try {
                 reply.setContentObject(stock);
             } catch (IOException ex) {

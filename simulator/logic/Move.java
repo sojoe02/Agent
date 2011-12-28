@@ -21,8 +21,8 @@ public class Move {
         double vLong = v * Math.cos(angle) * 0.0001;
         double vLat = v * Math.sin(angle) * 0.0001;
 
-        double nextLong =  longNow + time * vLong;
-        double nextLat =  latNow + time * vLat;
+        double nextLong =  longNow + (double)time * vLong;
+        double nextLat =  latNow + (double)time * vLat;
 
         int[] coor = {(int)nextLong,(int)nextLat};
 

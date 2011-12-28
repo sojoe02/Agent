@@ -26,7 +26,7 @@ import messages.PositionData;
 public class ReceiveItemList extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST), 
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM), 
             MessageTemplate.MatchConversationId("sendingitemlist"));
     GeneralPerson agent;
 

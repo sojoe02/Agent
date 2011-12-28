@@ -22,7 +22,7 @@ import messages.PosSectorData;
 public class ReceiveItem extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
             MessageTemplate.MatchConversationId("giveitem"));
     
     GeneralPerson agent;

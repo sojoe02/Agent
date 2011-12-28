@@ -40,13 +40,16 @@ public class ActorControl extends Agent implements AgentInterface {
         } catch (FileNotFoundException ex) {
             System.out.println("src/names.txt not found");
         }
+        
+        //doWait(20000);
+        
         addBehaviour(new StartNewPerson(this));
     }
     
     public void startNewPerson() throws StaleProxyException {
         
         String agentName = "Stan";        
-        Object[] args = {"00500400", "5000"};
+        Object[] args = {"00500400", "5000","2"};
         
         startNewAgent("agents.actors.GeneralPerson", agentName, args);
         

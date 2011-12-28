@@ -42,8 +42,11 @@ public class GiveItem extends CyclicBehaviour {
         if (aclMessage != null) {
             Item data = agent.takeoutItem(aclMessage.getContent());
             
-            ACLMessage reply = aclMessage.createReply();            
+            ACLMessage reply = aclMessage.createReply();   
+            
             reply.setConversationId("giveitem");
+            reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            
             try {                
                 reply.setContentObject(data);
             } catch (IOException ex) {
