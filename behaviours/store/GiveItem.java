@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Item;
 
-
 /**
  *
  * @author Zagadka
@@ -26,9 +25,9 @@ import messages.Item;
 public class GiveItem extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
             MessageTemplate.MatchConversationId("buyingitem"));
-    GeneralStore agent;    
+    GeneralStore agent;
 
     public GiveItem(GeneralStore agent) {
         this.agent = agent;
@@ -40,19 +39,26 @@ public class GiveItem extends CyclicBehaviour {
         ACLMessage aclMessage = myAgent.receive(mt);
 
         if (aclMessage != null) {
+            
             Item data = agent.takeoutItem(aclMessage.getContent());
-            
-            ACLMessage reply = aclMessage.createReply();   
-            
-            reply.setConversationId("giveitem");
-            reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-            
-            try {                
-                reply.setContentObject(data);
-            } catch (IOException ex) {
-                Logger.getLogger(GiveItemList.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (data != null) {
+                System.out.println(data.getCost());
+
+                ACLMessage reply = aclMessage.createReply();
+
+                reply.setConversationId("giveitem");
+                // reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+
+                try {
+                    reply.setContentObject(data);
+                } catch (IOException ex) {
+                    Logger.getLogger(GiveItemList.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                myAgent.send(reply);
+            } else {
+                this.block();
             }
-            myAgent.send(reply); 
         } else {
             this.block();
         }

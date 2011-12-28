@@ -54,7 +54,7 @@ public class AddActor extends CyclicBehaviour {
                 //System.out.println(content.getName());
             }
 
-            pres.repaint();
+            //pres.repaint();
 
 
         } else {

@@ -5,7 +5,7 @@
 package simulator.agents;
 
 import agents.AgentInterface;
-import behaviours.simulation.StartNewPerson;
+import behaviours.simulation.PersonControlTick;
 import jade.core.Agent;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
@@ -14,12 +14,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Zagadka
  */
-public class ActorControl extends Agent implements AgentInterface {
+public class PersonControl extends Agent implements AgentInterface {
 
     ArrayList<String> usedNames = new ArrayList<String>();
     ArrayList<String> names = new ArrayList<String>();
@@ -40,11 +42,18 @@ public class ActorControl extends Agent implements AgentInterface {
         } catch (FileNotFoundException ex) {
             System.out.println("src/names.txt not found");
         }
+        try {
+            //doWait(20000);
+            
+            startNewPerson();
+        } catch (StaleProxyException ex) {
+            Logger.getLogger(PersonControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        //doWait(20000);
-        
-        addBehaviour(new StartNewPerson(this));
+        addBehaviour(new PersonControlTick(this));
     }
+    
+    
     
     public void startNewPerson() throws StaleProxyException {
         
@@ -53,10 +62,22 @@ public class ActorControl extends Agent implements AgentInterface {
         
         startNewAgent("agents.actors.GeneralPerson", agentName, args);
         
-//        agentName = "bingo";        
-//        Object[] args2 = {"07770470", "5000"};
-//        
-//        startNewAgent("agents.actors.GeneralPerson", agentName, args2);
+        agentName = "bingo";        
+        Object[] args2 = {"07770470", "5000","3"};
+        
+        startNewAgent("agents.actors.GeneralPerson", agentName, args2);
+        
+        
+        agentName = "bingo2";        
+        Object[] args3 = {"07770470", "5000","3"};
+        
+        startNewAgent("agents.actors.GeneralPerson", agentName, args3);
+        
+        
+        agentName = "bingo3";        
+        Object[] args4 = {"07770470", "5000","3"};
+        
+        startNewAgent("agents.actors.GeneralPerson", agentName, args4);
         
     }
     

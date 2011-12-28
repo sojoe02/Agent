@@ -47,7 +47,7 @@ public class GiveItemList extends CyclicBehaviour{
             } catch (IOException ex) {
                 Logger.getLogger(GiveItemList.class.getName()).log(Level.SEVERE, null, ex);
             }
-            myAgent.send(reply);            
+            myAgent.send(reply);               
 
         } else {
             this.block();

@@ -34,7 +34,7 @@ public class PuppetMaster extends Agent implements AgentInterface {
 
         //start the actor controller:
         try {
-            ((AgentController) getContainerController().createNewAgent(ACTORCONTROL, "simulator.agents.ActorControl", null)).start();
+            ((AgentController) getContainerController().createNewAgent(ACTORCONTROL, "simulator.agents.PersonControl", null)).start();
         } catch (StaleProxyException ex) {
             Logger.getLogger(PuppetMaster.class.getName()).log(Level.SEVERE, null, ex);
         }

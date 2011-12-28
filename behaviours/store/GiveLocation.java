@@ -39,7 +39,8 @@ public class GiveLocation extends CyclicBehaviour {
         
         if(aclMessage != null){                       
             PosSectorData data = new PosSectorData(posx,posy,sector);
-            ACLMessage reply = aclMessage.createReply();            
+            ACLMessage reply = aclMessage.createReply();         
+            reply.setPerformative(ACLMessage.INFORM);
             reply.setConversationId("getstorelocation");
             try {                
                 reply.setContentObject(data);

@@ -16,20 +16,22 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.AgentData;
-import simulator.agents.ActorControl;
+import simulator.agents.PersonControl;
 
 /**
  *
  * @author Zagadka
  */
-public class StartNewPerson extends CyclicBehaviour {
+public class PersonControlTick extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
-    ActorControl agent;
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
+            MessageTemplate.MatchConversationId("persontick"));
+    
+    PersonControl agent;
 
-    public StartNewPerson(Agent agent) {        
-        this.agent = (ActorControl) agent;        
+    public PersonControlTick(Agent agent) {        
+        this.agent = (PersonControl) agent;        
     }
 
     @Override
@@ -40,7 +42,7 @@ public class StartNewPerson extends CyclicBehaviour {
                 try {                    
                     agent.startNewPerson();
                 } catch (StaleProxyException ex) {
-                    Logger.getLogger(StartNewPerson.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PersonControlTick.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 this.block();

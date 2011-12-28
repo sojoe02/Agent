@@ -58,7 +58,7 @@ public class UpdatePosition extends CyclicBehaviour {
 //                System.out.println(content.getName());
 //            }
 
-            pres.repaint();
+            //pres.repaint();
 
 
         } else {

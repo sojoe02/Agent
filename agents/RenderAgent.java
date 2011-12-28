@@ -40,6 +40,7 @@ public class RenderAgent extends Agent {
         addBehaviour(new UpdatePosition(this, pres));
         addBehaviour(new UpdateActorSpeech(this, pres));
         addBehaviour(new AddActor(this, pres));
+        addBehaviour(new Painter(this,50, pres));
     }
 
     public void drawMap() {

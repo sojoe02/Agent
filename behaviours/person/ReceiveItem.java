@@ -22,11 +22,9 @@ import messages.PosSectorData;
 public class ReceiveItem extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
             MessageTemplate.MatchConversationId("giveitem"));
-    
     GeneralPerson agent;
-    
 
     public ReceiveItem(GeneralPerson agent) {
         this.agent = agent;
@@ -36,15 +34,19 @@ public class ReceiveItem extends CyclicBehaviour {
     public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
         if (aclMessage != null) {
-        Item data = null;
+            Item data = null;
             try {
                 data = (Item) aclMessage.getContentObject();
             } catch (UnreadableException ex) {
                 Logger.getLogger(GetDirections.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            //System.out.println(data.getSector());
-            agent.receiveItem(data);
+
+            if (data != null) {
+                System.out.println(data.toString());
+                agent.receiveItem(data);
+            } else{
+                this.block();
+            }
         }
 
     }

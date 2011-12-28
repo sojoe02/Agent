@@ -85,8 +85,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         
         AID shops[] = searchDF("GeneralItems");
         
-        AID shop = shops[random.nextInt(shops.length)];
-        
+        shop = shops[random.nextInt(shops.length)];
         
         ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
         aclMessage.setConversationId("GeneralItems");
@@ -100,9 +99,9 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
      * Function to make the actor choose an item at random from the list received 
      * via the ReceiveItemList behaviour.
      */
-    public void chooseItem(String item, AID shop){   
+    public void chooseItem(String item){//, AID shop){   
         this.item = item;
-        this.shop = shop;
+        //this.shop = shop;
         ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
         aclMessage.setConversationId("givestorelocation");
         aclMessage.addReceiver(shop);
@@ -112,24 +111,43 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
     
     public void buyItem(){
         sendMessage("buying: " + item);
-        ACLMessage aclMessage = new ACLMessage(ACLMessage.PROPOSE);
+        
+        ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
         aclMessage.setConversationId("buyingitem");
+        
+        
         aclMessage.addReceiver(shop);
         aclMessage.setContent(item);
         this.send(aclMessage);
+        System.out.println("buying:" + item);
     }
     
     public void receiveItem(Item item){
         shoppingbag.add(item);
-        System.out.println(item.getCost());
-        busy= false;
+        
+        busy= false;   
+        
+        System.out.println(item.getCost() + " : " + this.getLocalName() + busy);  
+        
+        doWait(1000);
+        
+        browse();
+        
+        
     }
 
     public void moveToCross(int posx, int posy) {
         int[] to = {posx, posy};
         move(to);
+        
+        this.doWait(100);
+        
         move(destination);
+        
+        this.doWait(100);
+        
         buyItem();
+        
     }
 
     public void movetoStore(int storesection, int[] destination) {
@@ -144,6 +162,9 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
             this.send(aclMessage);
         } else {
             move(destination);
+            this.doWait(100);
+        
+        buyItem();
         }
 
     }
@@ -207,12 +228,17 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         int[] from = {posx, posy};
         //double[] to = {700, 700}; 
         Move move = new Move();
-        while (Math.abs(to[0] - posx) > 3 ||Math.abs(to[1]-posy)>3) {
-            from = move.getNextPos(to, from, 100, 100);
+        
+        sendMessage("moving to: " + shop.getLocalName());
+        
+        while (Math.abs(to[0] - posx) > 30 || Math.abs(to[1]-posy)>30) {
+            from = move.getNextPos(to, from, 100, 500);
             posx = (int) from[0];
             posy = (int) from[1];
             updatePosition();
-            doWait(5);
+            doWait(30);
+            
+           
         }
     }
 

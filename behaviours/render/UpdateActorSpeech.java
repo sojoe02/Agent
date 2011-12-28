@@ -31,7 +31,7 @@ public class UpdateActorSpeech extends SimpleBehaviour {
         ACLMessage aclMessage = myAgent.receive(mt);
         if (aclMessage!=null) {
             pres.updateSpeech(aclMessage.getSender().getLocalName(), aclMessage.getContent());
-            pres.repaint();
+            //pres.repaint();
         } else {
             this.block();
         }

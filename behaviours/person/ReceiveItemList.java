@@ -26,7 +26,7 @@ import messages.PositionData;
 public class ReceiveItemList extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM), 
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),
             MessageTemplate.MatchConversationId("sendingitemlist"));
     GeneralPerson agent;
 
@@ -37,22 +37,27 @@ public class ReceiveItemList extends CyclicBehaviour {
     @Override
     public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
-        
-        
-        if (aclMessage != null) {             
+
+
+        if (aclMessage != null) {
             HashMap<String, Items> stock = null;
             try {
                 stock = (HashMap) aclMessage.getContentObject();
             } catch (UnreadableException ex) {
                 Logger.getLogger(GetDirections.class.getName()).log(Level.SEVERE, null, ex);
-            }                 
+            }
             /*
              * Choose an item from the stock at random, and make the person choose it:
              */
             //System.out.println(aclMessage.getSender().getLocalName());
-            Object[] s = stock.keySet().toArray();
-            Random rand = new Random();            
-            agent.chooseItem(s[rand.nextInt(s.length)].toString(),aclMessage.getSender());   
+            if (stock != null) {
+                Object[] s = stock.keySet().toArray();
+                Random rand = new Random();
+                agent.chooseItem(s[rand.nextInt(s.length)].toString());
+            } else{
+                System.out.println("NULL DETECTED");
+                this.block();
+            }
 
         } else {
             this.block();

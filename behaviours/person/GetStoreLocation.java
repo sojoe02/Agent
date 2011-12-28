@@ -14,44 +14,45 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.PosSectorData;
 
-
 /**
  *
  * @author Zagadka
  */
-public class GetStoreLocation extends CyclicBehaviour{
-    
+public class GetStoreLocation extends CyclicBehaviour {
+
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),
             MessageTemplate.MatchConversationId("getstorelocation"));
-    
     GeneralPerson agent;
-    
-    public GetStoreLocation(GeneralPerson agent){
+
+    public GetStoreLocation(GeneralPerson agent) {
         this.agent = agent;
     }
 
     @Override
-    public void action() {     
+    public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
-        
-        
-        if (aclMessage != null) {             
+
+
+        if (aclMessage != null) {
             PosSectorData data = null;
             try {
                 data = (PosSectorData) aclMessage.getContentObject();
             } catch (UnreadableException ex) {
                 Logger.getLogger(GetDirections.class.getName()).log(Level.SEVERE, null, ex);
             }
-            int[] destination = {data.getPosX(),data.getPosY()};
-            //System.out.println(data.getSector());
-            agent.movetoStore(data.getSector(), destination);
-            
+            if (data != null) {
+                int[] destination = {data.getPosX(), data.getPosY()};
+                //System.out.print(data.getSector() + ",");
+                agent.movetoStore(data.getSector(), destination);
+            } else{
+                this.block();
+            }
+
 
         } else {
             this.block();
         }
-        
+
     }
-    
 }

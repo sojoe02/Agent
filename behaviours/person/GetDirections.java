@@ -18,20 +18,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.PositionData;
 
-
 public class GetDirections extends CyclicBehaviour {
-    
+
     private static final MessageTemplate mt =
-           MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST), 
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
             MessageTemplate.MatchConversationId("directions"));
-   
     GeneralPerson agent;
 
-    
-    public GetDirections(Agent agent){
+    public GetDirections(Agent agent) {
         this.agent = (GeneralPerson) agent;
-    } 
-     
+    }
 
     @Override
     public void action() {
@@ -45,7 +41,10 @@ public class GetDirections extends CyclicBehaviour {
             } catch (UnreadableException ex) {
                 Logger.getLogger(GetDirections.class.getName()).log(Level.SEVERE, null, ex);
             }
-            agent.moveToCross(content.getPosX(), content.getPosY());
+
+            if (content != null) {
+                agent.moveToCross(content.getPosX(), content.getPosY());
+            }
 
         } else {
             this.block();

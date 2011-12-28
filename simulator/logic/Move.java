@@ -18,8 +18,8 @@ public class Move {
         double latEnd = (double)to[1];
         double angle = Math.atan2(latEnd - latNow, longEnd - longNow);
 
-        double vLong = v * Math.cos(angle) * 0.0001;
-        double vLat = v * Math.sin(angle) * 0.0001;
+        double vLong = (double)v * Math.cos(angle) * 0.0001;
+        double vLat = (double)v * Math.sin(angle) * 0.0001;
 
         double nextLong =  longNow + (double)time * vLong;
         double nextLat =  latNow + (double)time * vLat;
