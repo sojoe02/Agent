@@ -6,14 +6,13 @@ package behaviours.person;
 
 import agents.actors.GeneralPerson;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Item;
-import messages.StoreData;
+
 
 /**
  *
@@ -32,6 +31,7 @@ public class ReceiveItem extends CyclicBehaviour {
 
     @Override
     public void action() {
+        
         ACLMessage aclMessage = myAgent.receive(mt);
         if (aclMessage != null) {
             Item data = null;

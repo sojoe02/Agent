@@ -5,6 +5,7 @@
 package behaviours.person;
 
 import agents.actors.GeneralPerson;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -20,7 +21,7 @@ import simulator.logic.Distributions;
  *
  * @author Zagadka
  */
-public class GetStoreLocation extends CyclicBehaviour {
+public class GetStoreLocation extends CyclicBehaviour implements agents.AgentInterface{
 
     private static final MessageTemplate mt =
             MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),
@@ -36,7 +37,7 @@ public class GetStoreLocation extends CyclicBehaviour {
     public void action() {
         ACLMessage aclMessage = myAgent.receive(mt);
 
-
+        
         if (aclMessage != null) {
             StoreData data = null;
             try {
@@ -56,14 +57,22 @@ public class GetStoreLocation extends CyclicBehaviour {
                 //System.out.println(value);
 
 
-                if (data.getActiveCustomer() > value) {
+                if (data.getActiveCustomer() > 1) {
                     agent.sendMessage("Too many customers choosing another store");
 
                     ACLMessage reply = aclMessage.createReply();
                     reply.setPerformative(ACLMessage.INFORM);
                     reply.setConversationId("notcomming");
+
+                    
+                    /*
+                     * Informing the collector agent that the agent is waiting.
+                     */
+                    agent.waitingToCollector();
+
+
                     agent.send(reply);
-                    agent.doWait(1000);
+                    agent.doWait(2000);
                     agent.browse();
                 } else {
                     agent.movetoStore(data.getSector(), destination);

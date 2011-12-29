@@ -32,12 +32,8 @@ public class Controller extends Agent implements AgentInterface {
     @Override
     public void setup() {
 
-
         System.out.println("Hello I am the Actor Controller agent my name is: "
                 + this.getLocalName());
-
-
-
         try {
             Scanner s = new Scanner(new BufferedReader(new FileReader("src/names.txt")));
             while (s.hasNext()) {
@@ -54,10 +50,6 @@ public class Controller extends Agent implements AgentInterface {
 //        for(int i = 0; i < 500; i++){
 //            doWait(10);
 //        }
-
-        
-
-
 
     }
 

@@ -39,6 +39,16 @@ public class PuppetMaster extends Agent implements AgentInterface {
             Logger.getLogger(PuppetMaster.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        //start the collector agent:
+                try {
+            ((AgentController) getContainerController().createNewAgent(COLLECTOR, "simulator.agents.Collector", null)).start();
+        } catch (StaleProxyException ex) {
+            Logger.getLogger(PuppetMaster.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
         doWait(1000);
 
         //startNewPerson("now");
@@ -72,10 +82,6 @@ public class PuppetMaster extends Agent implements AgentInterface {
                 s2.useDelimiter(",");
                 ArrayList<String> tmp = new ArrayList<String>();
                 String res, name;
-
-
-
-
                 name = s2.next();
                 res = s2.next();
                 /*Sending the position data of the crossection to the PersonControl
