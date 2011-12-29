@@ -5,15 +5,10 @@
 package behaviours.store;
 
 import agents.actors.GeneralStore;
-import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import messages.StoreData;
-import messages.PositionData;
+
 /**
  *
  * @author Zagadka

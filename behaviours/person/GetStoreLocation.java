@@ -57,7 +57,7 @@ public class GetStoreLocation extends CyclicBehaviour implements agents.AgentInt
                 //System.out.println(value);
 
 
-                if (data.getActiveCustomer() > 1) {
+                if (data.getActiveCustomer() > value) {
                     agent.sendMessage("Too many customers choosing another store");
 
                     ACLMessage reply = aclMessage.createReply();
