@@ -25,7 +25,7 @@ import messages.Item;
 public class GiveItem extends CyclicBehaviour {
 
     private static final MessageTemplate mt =
-            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
+            MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
             MessageTemplate.MatchConversationId("buyingitem"));
     GeneralStore agent;
 
@@ -48,7 +48,7 @@ public class GiveItem extends CyclicBehaviour {
                 ACLMessage reply = aclMessage.createReply();
 
                 reply.setConversationId("giveitem");
-                // reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
 
                 try {
                     reply.setContentObject(data);

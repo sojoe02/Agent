@@ -34,12 +34,14 @@ public class PuppetMaster extends Agent implements AgentInterface {
 
         //start the actor controller:
         try {
-            ((AgentController) getContainerController().createNewAgent(ACTORCONTROL, "simulator.agents.PersonControl", null)).start();
+            ((AgentController) getContainerController().createNewAgent(ACTORCONTROL, "simulator.agents.Controller", null)).start();
         } catch (StaleProxyException ex) {
             Logger.getLogger(PuppetMaster.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        startNewPerson("now");
+        doWait(1000);
+
+        //startNewPerson("now");
 
         //Starting up all the stores:
         try {
@@ -50,7 +52,7 @@ public class PuppetMaster extends Agent implements AgentInterface {
                 //set delimiter to ,<space>
                 String name = s2.next();
                 //String pos = s.next();
-                Object[] args = {s2.next(),s2.next()};
+                Object[] args = {s2.next(), s2.next()};
                 try {
                     startNewStore(name, args);
                 } catch (StaleProxyException ex) {
@@ -70,17 +72,32 @@ public class PuppetMaster extends Agent implements AgentInterface {
                 s2.useDelimiter(",");
                 ArrayList<String> tmp = new ArrayList<String>();
                 String res, name;
+
+
+
+
                 name = s2.next();
                 res = s2.next();
+                /*Sending the position data of the crossection to the PersonControl
+                 * so that it knows where it can legally generate persons:
+                 */
+                ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
+                aclMessage.setConversationId("fullcrosssectiondata");                
+                AID r = new AID(ACTORCONTROL, AID.ISLOCALNAME);
+                aclMessage.addReceiver(r);
+                aclMessage.setContent(res);
+                this.send(aclMessage);
+
+                /*...............................................................*/
                 //put the remainder in a zone array:
                 while (s2.hasNext()) {
                     String value = s2.next();
-                    tmp.add(value);                    
+                    tmp.add(value);
                 }
                 Object[] args = new Object[tmp.size() + 1];
                 args[0] = res;
                 for (int i = 1; i <= tmp.size(); i++) {
-                    args[i] = tmp.get(i-1);
+                    args[i] = tmp.get(i - 1);
                 }
                 try {
                     startNewCrossSection(name, args);
@@ -103,12 +120,5 @@ public class PuppetMaster extends Agent implements AgentInterface {
     private void startNewCrossSection(String agentName, Object[] arguments) throws StaleProxyException {
         ((AgentController) getContainerController().createNewAgent(agentName, "agents.actors.CrossSection", arguments)).start();
     }
-
-    public void startNewPerson(String message) {
-        AID r = new AID(ACTORCONTROL, AID.ISLOCALNAME);
-        ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-        aclMessage.addReceiver(r);
-        aclMessage.setContent(message);
-        this.send(aclMessage);
-    }
+    
 }

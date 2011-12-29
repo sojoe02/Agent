@@ -46,7 +46,7 @@ public class GPerson {
     }
 
     public void draw(Graphics graphics) {
-        Font f = new Font("SansSerif", Font.BOLD, 15);
+        Font f = new Font("SansSerif", Font.PLAIN, 15);
         graphics.setFont(f);
         graphics.setFont(null);
         graphics.drawString(name, posx, posy);

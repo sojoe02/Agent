@@ -112,14 +112,12 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
     public void buyItem(){
         sendMessage("buying: " + item);
         
-        ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage aclMessage = new ACLMessage(ACLMessage.PROPOSE);
         aclMessage.setConversationId("buyingitem");
-        
-        
         aclMessage.addReceiver(shop);
         aclMessage.setContent(item);
         this.send(aclMessage);
-        System.out.println("buying:" + item);
+        //System.out.println("buying:" + item);
     }
     
     public void receiveItem(Item item){
@@ -127,7 +125,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
         
         busy= false;   
         
-        System.out.println(item.getCost() + " : " + this.getLocalName() + busy);  
+        //System.out.println(item.getCost() + " : " + this.getLocalName() + busy);  
         
         doWait(1000);
         
@@ -176,7 +174,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
             String name = cross[i].getLocalName();
             if (name.contains(Integer.toString(this.section))
                     && name.contains(Integer.toString(desSection))) {
-                System.out.println(name);
+                //System.out.println(name);
                 return cross[i];
             }
         }
@@ -236,8 +234,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
             posx = (int) from[0];
             posy = (int) from[1];
             updatePosition();
-            doWait(30);
-            
+            doWait(30);         
            
         }
     }

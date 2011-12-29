@@ -55,7 +55,7 @@ public class ReceiveItemList extends CyclicBehaviour {
                 Random rand = new Random();
                 agent.chooseItem(s[rand.nextInt(s.length)].toString());
             } else{
-                System.out.println("NULL DETECTED");
+                //System.out.println("NULL DETECTED");
                 this.block();
             }
 
