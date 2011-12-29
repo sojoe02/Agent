@@ -10,9 +10,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import messages.PosSectorData;
+import messages.StoreData;
+import simulator.logic.Distributions;
 
 /**
  *
@@ -27,6 +29,7 @@ public class GetStoreLocation extends CyclicBehaviour {
 
     public GetStoreLocation(GeneralPerson agent) {
         this.agent = agent;
+
     }
 
     @Override
@@ -35,17 +38,37 @@ public class GetStoreLocation extends CyclicBehaviour {
 
 
         if (aclMessage != null) {
-            PosSectorData data = null;
+            StoreData data = null;
             try {
-                data = (PosSectorData) aclMessage.getContentObject();
+                data = (StoreData) aclMessage.getContentObject();
             } catch (UnreadableException ex) {
                 Logger.getLogger(GetDirections.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (data != null) {
                 int[] destination = {data.getPosX(), data.getPosY()};
                 //System.out.print(data.getSector() + ",");
-                agent.movetoStore(data.getSector(), destination);
-            } else{
+                Random random = new Random();
+
+                int value = Distributions.getPoisson(2);
+                //For a normally distributed decision making:
+                //Math.abs((int) (3 + random.nextGaussian() * 0.5));
+
+                //System.out.println(value);
+
+
+                if (data.getActiveCustomer() > value) {
+                    agent.sendMessage("Too many customers choosing another store");
+
+                    ACLMessage reply = aclMessage.createReply();
+                    reply.setPerformative(ACLMessage.INFORM);
+                    reply.setConversationId("notcomming");
+                    agent.send(reply);
+                    agent.doWait(1000);
+                    agent.browse();
+                } else {
+                    agent.movetoStore(data.getSector(), destination);
+                }
+            } else {
                 this.block();
             }
 

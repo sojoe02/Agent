@@ -43,7 +43,7 @@ public class GiveItem extends CyclicBehaviour {
             Item data = agent.takeoutItem(aclMessage.getContent());
 
             if (data != null) {
-                System.out.println(data.getCost());
+                //System.out.println(data.getCost());
 
                 ACLMessage reply = aclMessage.createReply();
 

@@ -8,16 +8,22 @@ package messages;
  *
  * @author Zagadka
  */
-public class PosSectorData extends PositionData{
+public class StoreData extends PositionData{
     
     int sector;
+    int activeCustomer;
     
-    public PosSectorData(int posx,int posy, int sector){
+    public StoreData(int posx,int posy, int sector,int activeCustomer){
         super(posx, posy);
         this.sector = sector;
+        this.activeCustomer = activeCustomer;
     }
     
     public int getSector(){
         return sector;
+    }
+    
+    public int getActiveCustomer(){
+        return activeCustomer;
     }
 }

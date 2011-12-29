@@ -4,6 +4,7 @@
  */
 package behaviours.store;
 
+import agents.actors.GeneralStore;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -11,7 +12,7 @@ import jade.lang.acl.MessageTemplate;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import messages.PosSectorData;
+import messages.StoreData;
 import messages.PositionData;
 
 /**
@@ -25,9 +26,11 @@ public class GiveLocation extends CyclicBehaviour {
             MessageTemplate.MatchConversationId("givestorelocation"));
     
     int posx, posy, sector;
+    
+    GeneralStore agent;
 
-    public GiveLocation(Agent agent, int posx, int posy,int sector) {
-        super(agent);
+    public GiveLocation(GeneralStore agent, int posx, int posy,int sector) {
+        this.agent = agent;
         this.posx = posx;
         this.posy = posy; 
         this.sector = sector;
@@ -35,10 +38,11 @@ public class GiveLocation extends CyclicBehaviour {
 
     @Override
     public void action() {
-        ACLMessage aclMessage = myAgent.receive(mt);
+        ACLMessage aclMessage = agent.receive(mt);
         
         if(aclMessage != null){                       
-            PosSectorData data = new PosSectorData(posx,posy,sector);
+            StoreData data = new StoreData(posx,posy,sector,agent.getActiveCustomer());
+            agent.addCustomer();            
             ACLMessage reply = aclMessage.createReply();         
             reply.setPerformative(ACLMessage.INFORM);
             reply.setConversationId("getstorelocation");

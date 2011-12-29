@@ -169,7 +169,7 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
 
     private AID lookforValidCross(int desSection) {
         AID[] cross = searchDF("CrossSection");
-        System.out.print("\nCROSSSECTIONS: ");
+        //System.out.print("\nCROSSSECTIONS: ");
         for (int i = 0; i < cross.length; i++) {
             String name = cross[i].getLocalName();
             if (name.contains(Integer.toString(this.section))

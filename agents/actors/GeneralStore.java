@@ -12,6 +12,7 @@ import behaviours.store.GiveItem;
 import messages.Items;
 import behaviours.store.GiveItemList;
 import behaviours.store.GiveLocation;
+import behaviours.store.NotComming;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -33,7 +34,10 @@ import messages.Item;
 public class GeneralStore extends Agent implements agents.AgentInterface {
 
     private int posx, posy, sector;    
-    private HashMap<String, Items> stock = new HashMap<String, Items>();    
+    private HashMap<String, Items> stock = new HashMap<String, Items>(); 
+    
+    private int activeCustomers;
+    
 
     @Override
     protected void setup() {
@@ -42,6 +46,7 @@ public class GeneralStore extends Agent implements agents.AgentInterface {
         posx = Integer.parseInt(String.valueOf(args[0]).substring(0, 4));
         posy = Integer.parseInt(String.valueOf(args[0]).substring(4, 8));
         sector = Integer.parseInt(String.valueOf(args[1]));
+        activeCustomers = 0;
 
         System.out.println("Hallo World ! my name is " + this.getLocalName()
                 + " i am a straight up 'general store' agent. pos is" + posx + ":" + posy);
@@ -52,9 +57,24 @@ public class GeneralStore extends Agent implements agents.AgentInterface {
         addBehaviour(new GiveItemList(this,stock));
         addBehaviour(new GiveLocation(this,posx,posy,sector));
         addBehaviour(new GiveItem(this));
+        addBehaviour(new NotComming(this));
+    }
+    
+    public void addCustomer(){
+        this.activeCustomers++;
+        //System.out.println(activeCustomers);
+    }
+    
+    public void removeCustomer(){
+        this.activeCustomers--;
+    }
+    
+    public int getActiveCustomer(){
+        return this.activeCustomers;
     }
     
     public Item takeoutItem(String key){
+        this.activeCustomers--;
         Items items = stock.get(key);
         items.TakeOut();
         return(new Item(items.getPrice(),key));        

@@ -117,7 +117,7 @@ public class Controller extends Agent implements AgentInterface {
 
     private AID lookforValidCross() {
         AID[] cross = searchDF("CrossSection");
-        System.out.print("\nCROSSSECTIONS: ");
+        //System.out.print("\nCROSSSECTIONS: ");
         Random random = new Random();
 
         AID across = cross[random.nextInt(cross.length)];

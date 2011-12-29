@@ -13,7 +13,7 @@ import jade.lang.acl.UnreadableException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Item;
-import messages.PosSectorData;
+import messages.StoreData;
 
 /**
  *
