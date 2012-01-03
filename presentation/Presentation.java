@@ -4,6 +4,7 @@
  */
 package presentation;
 
+import java.awt.Color;
 import presentation.agentRepresentation.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,11 +27,14 @@ public class Presentation extends JComponent implements MouseListener {
 
     private HashMap<String, GPerson> persons = new HashMap<String, GPerson>();
     private HashMap<String, GStore> stores = new HashMap<String, GStore>();
-    private HashMap<String, GCrossSection> crosssections = 
+    private HashMap<String, GCrossSection> crosssections =
             new HashMap<String, GCrossSection>();
 
+    Color people;
+    
     public Presentation() {
         
+        people = new Color(59,112,71);
     }
 
     @Override
@@ -40,19 +44,14 @@ public class Presentation extends JComponent implements MouseListener {
     }
 
     public synchronized void actorRender(Graphics g) {
-        Collection p = persons.values();
-        Iterator<GPerson> itr = p.iterator();
-        while (itr.hasNext()) {
-            itr.next().draw(g);
-        }
-        
+
         Collection s = stores.values();
         //System.out.println(stores.size());
         Iterator<GStore> sitr = s.iterator();
         while (sitr.hasNext()) {
             sitr.next().draw(g);
         }
-        
+
         Collection t = crosssections.values();
         //System.out.println(crosssections.size());
         Iterator<GCrossSection> titr = t.iterator();
@@ -60,14 +59,23 @@ public class Presentation extends JComponent implements MouseListener {
             titr.next().draw(g);
         }
         
-        
+        g.setColor(people);
+
+        Collection p = persons.values();
+        Iterator<GPerson> itr = p.iterator();
+        while (itr.hasNext()) {
+            itr.next().draw(g);
+        }
+
+
+
     }
 
     public synchronized void addStore(String name, int posx, int posy) {
         GStore tmp = new GStore(name, posx, posy);
         stores.put(name, tmp);
     }
-    
+
     public synchronized void addCross(String name, int posx, int posy) {
         GCrossSection tmp = new GCrossSection(name, posx, posy);
         crosssections.put(name, tmp);
