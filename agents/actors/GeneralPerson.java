@@ -156,9 +156,9 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
 
     public void movetoStore(int storesection, int[] destination) {
         this.destination = destination;
-        if (storesection != this.section) {
-            this.section = storesection;
+        if (storesection != this.section) {  
             AID r = lookforValidCross(storesection);
+            this.section = storesection;
             ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
             aclMessage.addReceiver(r);
             aclMessage.setContent("givenewposition");
@@ -181,6 +181,8 @@ public class GeneralPerson extends Agent implements agents.AgentInterface {
             if (name.contains(Integer.toString(this.section))
                     && name.contains(Integer.toString(desSection))) {
                 //System.out.println(name);
+                System.out.println(name+","+ section);
+                
                 return cross[i];
             }
         }

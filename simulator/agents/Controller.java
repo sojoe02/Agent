@@ -82,8 +82,8 @@ public class Controller extends Agent implements AgentInterface {
         
         for (int i = 0; i < names.size(); i++) {
             String agentName = names.get(i);
-            Object[] args = {positions.get(random.nextInt(positions.size())),
-                "5000", "2"};
+            Object[] args = {"05000500",
+                "5000", "1"};
             startNewAgent("agents.actors.GeneralPerson", agentName, args);
         }
     }
