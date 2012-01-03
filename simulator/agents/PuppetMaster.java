@@ -99,7 +99,10 @@ public class PuppetMaster extends Agent implements AgentInterface {
                 while (s2.hasNext()) {
                     String value = s2.next();
                     tmp.add(value);
+                    System.out.print(value);
                 }
+                
+                System.out.println(",");
                 Object[] args = new Object[tmp.size() + 1];
                 args[0] = res;
                 for (int i = 1; i <= tmp.size(); i++) {
